@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>Upload a File</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    
+    <button id="viewFileStructure">View File Structure</button>
+
+    <script>
+        function redirectToStructurePage() {
+            // Redirect to the home page using the same route URL '/'
+            window.location.href = "/show-structure";
+        }
+        
+        var viewFileStructure = document.getElementById("viewFileStructure");
+        
+        viewFileStructure.onclick = redirectToStructurePage;
+        
+    </script>
+</body>
+</html>

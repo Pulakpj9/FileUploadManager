@@ -1,0 +1,101 @@
+<!-- structure.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Structure Page</title>
+    <style>
+        /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+h1{display: inline-block;
+width: 80%;}
+    </style>
+</head>
+<body>
+    <div><h1>Structure of Data</h1><button id="goBackButton">Go Back</button></div>
+    {% for key in data %}
+        {% if data[key] is string %}
+            <button class="accordion">{{ key }}:</button>
+            <div class="panel">
+                <p>{{ data[key] }}</p>
+            </div>
+        {% elif data[key] is iterable %}
+        <button class="accordion">{{ key }}:</button>
+            {% for value in data[key] %}
+                <div class="panel">
+                    <p>{{ value }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div>{{ key }}: Not available</div>
+        {% endif %}
+    {% endfor %}
+    
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
+                this.classList.toggle("active");
+
+                /* Toggle between hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                panel.style.display = "none";
+                } else {
+                panel.style.display = "block";
+                }
+            });
+        }
+
+            // Function to handle the button click event
+            function redirectToHomePage() {
+            // Redirect to the home page using the same route URL '/'
+            window.location.href = "/";
+        }
+
+        // Get the button element by its ID
+        var goBackButton = document.getElementById("goBackButton");
+
+        // Attach the onclick event handler to the button
+        goBackButton.onclick = redirectToHomePage;
+    </script>
+</body>
+</html>
